@@ -2,16 +2,37 @@
   <div class="todo__header text-capitalize mx-auto bg-primary text-white p-5">
     <h1 class="text-end">to-do app!</h1>
     <p class="text-end">add new to-do</p>
-    <form>
-      <input
-        type="text"
-        id="todo__input"
-        placeholder="Enter New Task"
-        class="p-1 w-100 mb-2"
-      />
-      <button class="add__todo btn border border-white py-1 px-3 text-white">
-        Add
-      </button>
-    </form>
+    <input
+      type="text"
+      #todo__input
+      placeholder="Enter New Task"
+      class="p-1 w-100 mb-2"
+      [value]="inputValue"
+    />
+    <button
+      class="add__todo btn border border-white py-1 px-3 text-white"
+      (click)="addTask(todo__input.value)"
+    >
+      Add
+    </button>
+    <div class="todo__list mt-5">
+      <ul class="list-unstyled">
+        <li
+          *ngFor="let todo of todos; let i = index"
+          [ngClass]="{
+            'text-decoration-line-through': todo.completed === true
+          }"
+          class="text-white"
+        >
+          <button class="btn btn-success m-3" (click)="doneTask(i)">
+            Completed
+          </button>
+          <button class="btn btn-danger m-3" (click)="deleteTask(i)">
+            Delete
+          </button>
+          <span>{{ todo.task }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
